@@ -40,6 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'cart',
+    'checkout',
+    'orders',
+    'products',
+    'users',
+
     'django_vite',
     'rest_framework'
 ]
@@ -133,7 +139,7 @@ STATIC_ROOT = BASE_DIR / 'static_files'
 # Include ViteJS build files with python manage.py collectstatic
 # STATICFILES_DIRS = [DJANGO_VITE_ASSETS_PATH]
 
-STATICFILES_DIRS = [BASE_DIR / 'static']
+STATICFILES_DIRS = [BASE_DIR / 'static/src']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

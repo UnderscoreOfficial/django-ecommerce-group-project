@@ -1,5 +1,4 @@
-{% load django_vite %} 
-{% load static %}
+{% load django_vite %} {% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,23 +10,16 @@
         {% vite_hmr_client %} 
         {% vite_asset 'js/main.js' %}
 
-        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        <!-- Preload stylesheets-->
+        <link rel="preload" href="{% static 'css/style.css' %}" as="style">
 
+        <!-- Add stylesheets -->
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        
     </head>
     <body>
         <main class="container">
-            <h1 x-data="{ message: 'Django Boilerplate with Lightweight Frontend' }" x-text="message"></h1>
-
-            <div x-data="{ count: 0 }">
-                <button x-on:click="count++">Increment • <span x-text="count"></span></button>
-            </div>
-
-            <div class="grid">
-                <a href="https://docs.djangoproject.com/en/4.2/"><img src="{% static 'src/images/django.png' %}"></a>
-                <a href="https://vitejs.dev/"><img src="{% static 'src/images/vite.png' %}"></a>
-                <a href="https://alpinejs.dev/"><img src="{% static 'src/images/alpine.png' %}"></a>
-                <a href="https://picocss.com/"><img src="{% static 'src/images/pico.png' %}"></a>
-              </div> 
+            <h1>Django Ecommerce Project</h1>
         </main>
     </body>
 </html>

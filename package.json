@@ -1,6 +1,5 @@
 {
-    "name": "django-boilerplate-lightweight-frontend",
-    "description": "quickstart projects with a lightweight frontend",
+    "name": "django-ecommerce-project",
     "private": true,
     "scripts": {
         "dev": "vite",
@@ -9,8 +8,6 @@
         "setup": "npm install && python.exe -m pip install --upgrade pip && pip install -r requirements.txt"
     },
     "devDependencies": {
-        "@picocss/pico": "^1.5.10",
-        "gulp": "^4.0.2",
         "vite": "^4.3.1"
     }
 }
