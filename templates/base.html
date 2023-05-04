@@ -1,0 +1,33 @@
+{% load django_vite %} 
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Django Boilerplate</title>
+
+        {% vite_hmr_client %} 
+        {% vite_asset 'js/main.js' %}
+
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    </head>
+    <body>
+        <main class="container">
+            <h1 x-data="{ message: 'Django Boilerplate with Lightweight Frontend' }" x-text="message"></h1>
+
+            <div x-data="{ count: 0 }">
+                <button x-on:click="count++">Increment • <span x-text="count"></span></button>
+            </div>
+
+            <div class="grid">
+                <a href="https://docs.djangoproject.com/en/4.2/"><img src="{% static 'src/images/django.png' %}"></a>
+                <a href="https://vitejs.dev/"><img src="{% static 'src/images/vite.png' %}"></a>
+                <a href="https://alpinejs.dev/"><img src="{% static 'src/images/alpine.png' %}"></a>
+                <a href="https://picocss.com/"><img src="{% static 'src/images/pico.png' %}"></a>
+              </div> 
+        </main>
+    </body>
+</html>
