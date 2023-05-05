@@ -1,0 +1,31 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+a {
+    text-decoration: none;
+}
+
+h1 {
+    text-align: center;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+/* Set max width for main content */
+main {
+    max-width: 800px;
+    margin: 0 auto;
+    border: 1px solid black;
+}
