@@ -6,3 +6,4 @@ static/dist
 package-lock.json
 __pycache__
 .prettierignore
+**/migrations/*.py
