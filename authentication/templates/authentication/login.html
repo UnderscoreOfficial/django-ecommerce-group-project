@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1 class="filler_h1">Login</h1>
+
+    {% if not request.user.is_authenticated %}
+
+    <div class="container_loginForm">
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="form-group {% if error %} alert alert-danger {% endif %}">
+                {{ error }}
+            </div>
+
+            {% for field in form %}
+                {{ field.label_tag }}
+                {{ field }}
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary">Login</button>
+            
+        </form>  
+    </div>
+
+    {% else %}
+    <div class="loggged-in-dialog">
+        <p>You're already logged in. Would you like to <a href="{% url 'logout' %}">logout</a>?</p>
+    </div>
+    {% endif %}
+
+{% endblock %}

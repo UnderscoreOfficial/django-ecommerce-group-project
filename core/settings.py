@@ -40,12 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'authentication',
     'app',
     'cart',
     'checkout',
     'orders',
     'products',
-    'users',
 
     'django_vite',
     'rest_framework'

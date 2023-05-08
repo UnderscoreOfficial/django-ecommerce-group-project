@@ -8,3 +8,5 @@ __pycache__
 .prettierignore
 **/migrations/*.py
 .vscode/settings.json
+/media/**
+!/media/.gitkeep

@@ -11,6 +11,13 @@ Type below command to install npm+pip packages
 npm run setup
 ```
 
+Migrate database
+
+```
+python manage.py makemigrations
+python manage.py migrate
+```
+
 Start Vite
 
 ```
@@ -39,6 +46,10 @@ Project structure
 
 Universal app features, that don't fit into the other apps. Like loading universal templates or a global context processer.
 
+## authentication:
+
+This app is responsible for managing user authentication. It typically includes views and templates for user registration, login, and logout.
+
 ## products:
 
 This app is responsible for managing products and their attributes, such as name, description, price, and image. It typically includes models for products and related objects, such as categories and tags, and views and templates for displaying and searching for products.
@@ -54,7 +65,3 @@ This app is responsible for managing the checkout process. It typically includes
 ## orders:
 
 This app is responsible for managing orders and their status. It typically includes models for orders and related objects, such as order items and shipping information, and views and templates for displaying and updating order status.
-
-## users:
-
-This app is responsible for managing user authentication and profiles. It typically includes views and templates for user registration, login, and logout, as well as models for user profiles and related objects, such as addresses and payment methods.

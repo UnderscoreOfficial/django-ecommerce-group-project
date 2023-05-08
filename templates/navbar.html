@@ -26,6 +26,15 @@
                 </li> {% endcomment %}
             </ul>
             <form class="d-flex">
+                {% if not request.user.is_authenticated %}
+                <button class="btn" type="button" onclick="location.href='{% url 'login' %}'">Login</button>
+                <button class="btn" type="button" onclick="location.href='{% url 'register' %}'">Register</button>
+
+                {% else %}
+                    <button class="btn" type="button">{{ user.username }}</button>
+                    <button class="btn" type="button" onclick="location.href='{% url 'logout' %}'">Logout</button>
+                {% endif %}
+                
                 <button class="btn btn-outline-dark" type="button" onclick="location.href='{% url 'cart' %}'">
                     <i class="bi-cart-fill me-1"></i>
                     Cart
