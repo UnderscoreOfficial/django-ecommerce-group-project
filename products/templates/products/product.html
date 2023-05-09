@@ -1,16 +1,13 @@
 {% extends 'base.html' %}
-
 {% block content %}
     <!-- Product section-->
     <section class="py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="row gx-4 gx-lg-5 align-items-center">
                 <div class="col-md-6">
-                    <img
-                        class="card-img-top mb-5 mb-md-0"
-                        src="{{ product.image.url }}"
-                        alt="..."
-                    />
+                    <img class="card-img-top mb-5 mb-md-0"
+                         src="{{ product.image.url }}"
+                         alt="..."/>
                 </div>
                 <div class="col-md-6">
                     {% comment %} not sure if this is a thing we need? {% endcomment %}
@@ -18,32 +15,38 @@
                     <h1 class="display-5 fw-bolder">{{ product.name }}</h1>
                     <div class="fs-5 mb-5">
                         {% if product.sale > 0 %}
-                            <span class="text-decoration-line-through"
-                                >${{ product.price }}</span
-                            >
-                            <span>${{ product.sale }}</span>
-                        {% else %}
-                            <span>${{ product.price }}</span>
-                        {% endif %}
-                    </div>
-                    <p class="lead">
-                        {{ product.description }}
-                    </p>
-                    <div class="d-flex">
-                        <input
-                            class="form-control text-center me-3"
-                            id="inputQuantity"
-                            type="num"
-                            value="1"
-                            style="max-width: 3rem"
-                        />
-                        <button
-                            class="btn btn-outline-dark flex-shrink-0"
-                            type="button"
-                        >
-                            <i class="bi-cart-fill me-1"></i>
-                            Add to cart
-                        </button>
+                            <span class="text-decoration-line-through">${{ product.price }}</span
+                                >
+                                <span>${{ product.sale }}</span>
+                            {% else %}
+                                <span>${{ product.price }}</span>
+                            {% endif %}
+                        </div>
+                        <p class="lead">{{ product.description }}</p>
+                        <div class="d-flex">
+                            <form method="POST" action="{% url 'cartAdd' %}" class="cart-add-form">
+                                {% csrf_token %}
+                                <input class="form-control text-center me-3"
+                                       id="inputQuantity"
+                                       name="input_quantity"
+                                       type="number"
+                                       value="1"
+                                       style="max-width: 3rem"
+                                       min="1"
+                                       required/>
+                                {% if user.is_authenticated %}
+                                    <button class="btn btn-outline-dark flex-shrink-0" type="submit" value={{ product.id }} name="product_id">
+                                        <i class="bi-cart-fill me-1"></i>
+                                        Add to cart
+                                    </button>
+                                {% else %}
+                                    <button class="btn btn-outline-dark flex-shrink-0" type="submit" value={{ product.id }} name="product_id" auth="true">
+                                        <i class="bi-cart-fill me-1"></i>
+                                        Add to cart
+                                    </button>
+                                {% endif %}
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -54,38 +57,28 @@
         <section class="py-5 bg-light">
             <div class="container px-4 px-lg-5 mt-5">
                 <h2 class="fw-bolder mb-4">Related products</h2>
-                <div
-                    class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
-                >
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     {% for related_product in related_products %}
                         <div class="col mb-5">
                             <div class="card h-100">
                                 {% if related_product.sale > 0 %}
                                     <!-- Sale badge-->
-                                    <div
-                                        class="badge bg-dark text-white position-absolute"
-                                        style="top: 0.5rem; right: 0.5rem"
-                                    >
-                                        Sale
-                                    </div>
+                                    <div class="badge bg-dark text-white position-absolute"
+                                         style="top: 0.5rem;
+                                                right: 0.5rem">Sale</div>
                                 {% endif %}
                                 <!-- Product image-->
-                                <img
-                                    class="card-img-top"
-                                    src="{{ related_product.image.url }}"
-                                    alt="..."
-                                />
+                                <a href="{% url 'productDetail' related_product.id related_product.slug %}">
+                                    <img class="card-img-top" src="{{ related_product.image.url }}" alt="..."/>
+                                </a>
                                 <!-- Product details-->
                                 <div class="card-body p-4">
                                     <div class="text-center">
                                         <!-- Product name-->
                                         <h5 class="fw-bolder">{{ related_product.name }}</h5>
                                         <!-- Product reviews-->
-
                                         {% comment %} same here not sure how to ago about this right now {% endcomment %}
-                                        <div
-                                            class="d-flex justify-content-center small text-warning mb-2"
-                                        >
+                                        <div class="d-flex justify-content-center small text-warning mb-2">
                                             <div class="bi-star-fill"></div>
                                             <div class="bi-star-fill"></div>
                                             <div class="bi-star-fill"></div>
@@ -93,37 +86,27 @@
                                             <div class="bi-star-fill"></div>
                                         </div>
                                         <!-- Product price-->
-
                                         {% if related_product.sale > 0 %}
-                                            <span
-                                                class="text-muted text-decoration-line-through"
-                                                >${{ related_product.price }}</span
-                                            >
-                                            ${{ related_product.sale }}
-                                        {% else %}
-                                            ${{ related_product.price }}
-                                        {% endif %}
+                                            <span class="text-muted text-decoration-line-through">${{ related_product.price }}</span
+                                                >
+                                                ${{ related_product.sale }}
+                                            {% else %}
+                                                ${{ related_product.price }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <!-- Product actions-->
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center">
+                                            <a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a
+                                                >
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <!-- Product actions-->
-                                <div
-                                    class="card-footer p-4 pt-0 border-top-0 bg-transparent"
-                                >
-                                    <div class="text-center">
-                                        <a
-                                            class="btn btn-outline-dark mt-auto"
-                                            href="#"
-                                            >Add to cart</a
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-                        </div>      
-                    {% endfor %}
-                </div>
-            </div>
-        </section>
-    {% endif %}
-
-
-{% endblock %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+        {% endblock %}

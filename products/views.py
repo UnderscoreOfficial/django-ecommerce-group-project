@@ -8,7 +8,8 @@ def productDetails(request, id: int, name: str = None):
     if (name == None):
         return redirect("productDetail", id=id, name=product.slug)
 
-    related_products = Product.objects.filter(categories=1).order_by("?")[:4]
+    related_products = Product.objects.filter(
+        categories=1).exclude(id=id).order_by("?")[:4]
 
     context = {
         "product": product,

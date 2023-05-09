@@ -1,8 +1,104 @@
 {% extends 'base.html' %}
-
 {% block content %}
-
-<h1 class="filler_h1">Cart</h1>
-
+    <h1 class="filler_h1">Cart</h1>
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                {% for product in cart_items %}
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            {% if user.is_authenticated %}
+                                {% if product.sale > 0 %}
+                                    <!-- Sale badge-->
+                                    <div class="badge bg-dark text-white position-absolute"
+                                         style="top: 0.5rem;
+                                                right: 0.5rem">Sale</div>
+                                {% endif %}
+                                <!-- Product image-->
+                                <a href="{% url 'productDetail' product.id product.slug %}">
+                                    <img class="card-img-top" src="{{ product.image.url }}" alt="..." />
+                                </a>
+                                <!-- Product details-->
+                                <div class="card-body p-4">
+                                    <div class="text-center">
+                                        <!-- Product name-->
+                                        <h5 class="fw-bolder">{{ product.name }}</h5>
+                                        <!-- Product reviews-->
+                                        {% comment %} not really sure a good way to go about rating this? {% endcomment %}
+                                        {% if product.rating > 0 %}
+                                            <div class="d-flex justify-content-center small text-warning mb-2">
+                                                {% comment %} <div class="bi-star-fill"></div> {% endcomment %}
+                                                {% comment %} <div class="bi-star-fill"></div> {% endcomment %}
+                                                {% comment %} <div class="bi-star-fill"></div> {% endcomment %}
+                                                {% comment %} <div class="bi-star-fill"></div> {% endcomment %}
+                                                {% comment %} <div class="bi-star-fill"></div> {% endcomment %}
+                                            </div>
+                                        {% endif %}
+                                        <!-- Product price-->
+                                        {% if product.sale > 0 %}
+                                            <span class="text-muted text-decoration-line-through">${{ product.price }}</span>
+                                            ${{ product.sale }}
+                                        {% else %}
+                                            ${{ product.price }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% else %}
+                                {% if product.product.sale > 0 %}
+                                    <!-- Sale badge-->
+                                    <div class="badge bg-dark text-white position-absolute"
+                                         style="top: 0.5rem;
+                                                right: 0.5rem">Sale</div>
+                                {% endif %}
+                                <!-- Product image-->
+                                <a href="{% url 'productDetail' product.product.id product.product.slug %}">
+                                    <img class="card-img-top" src="{{ product.product.image.url }}" alt="..." />
+                                </a>
+                                <!-- Product details-->
+                                <div class="card-body p-4">
+                                    <div class="text-center">
+                                        <!-- Product name-->
+                                        <h5 class="fw-bolder">{{ product.product.name }}</h5>
+                                        <!-- Product reviews-->
+                                        {% comment %} not really sure a good way to go about rating this? {% endcomment %}
+                                        {% if product.rating > 0 %}
+                                            <div class="d-flex justify-content-center small text-warning mb-2">
+                                                {% comment %} <div class="bi-star-fill"></div> {% endcomment %}
+                                                {% comment %} <div class="bi-star-fill"></div> {% endcomment %}
+                                                {% comment %} <div class="bi-star-fill"></div> {% endcomment %}
+                                                {% comment %} <div class="bi-star-fill"></div> {% endcomment %}
+                                                {% comment %} <div class="bi-star-fill"></div> {% endcomment %}
+                                            </div>
+                                        {% endif %}
+                                        <!-- Product price-->
+                                        {% if product.product.sale > 0 %}
+                                            <span class="text-muted text-decoration-line-through">${{ product.product.price }}</span>
+                                            ${{ product.product.sale }}
+                                        {% else %}
+                                            ${{ product.product.price }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center cart-item-actions">
+                                    <input class="form-control text-center me-3"
+                                           id="inputQuantity"
+                                           name="input_quantity"
+                                           type="number"
+                                           value="{{ product.quantity }}"
+                                           style="max-width: 3rem"
+                                           min="1"
+                                           required/>
+                                    <a class="btn btn-outline-danger mt-auto"
+                                       href="{% url 'productDetail' product.product.id product.product.slug %}">Remove</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
 {% endblock %}
-

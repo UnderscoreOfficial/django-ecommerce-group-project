@@ -11,6 +11,8 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login_user(request, user)
+            request.session['cart'].user = user
+            request.session['cart'].save()
             return redirect('homepage')
     else:
         form = RegisterForm()
